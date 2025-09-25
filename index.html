@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishbone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A1A1A;
+            line-height: 1.6;
+            background-color: #FFFFFF;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #FFFFFF;
+            z-index: 1000;
+            padding: 20px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #6B7280;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #1A1A1A;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #1A1A1A;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+        
+        .hero-content p {
+            font-size: 20px;
+            color: #6B7280;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .hero-image {
+            position: relative;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            background-color: #3B82F6;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: #3B82F6;
+            border: 2px solid #3B82F6;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #3B82F6;
+            color: white;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: #FFFFFF;
+        }
+        
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #3B82F6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+        
+        .about-text p {
+            font-size: 18px;
+            color: #6B7280;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+        
+        .about-image {
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+        }
+        
+        .services-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 80px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+        
+        .service-card {
+            background-color: white;
+            padding: 40px 32px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
+        }
+        
+        .service-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+        }
+        
+        .service-card p {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 100px 0;
+            background-color: #FFFFFF;
+        }
+        
+        .projects-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 80px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+        
+        .project-info {
+            padding: 32px;
+        }
+        
+        .project-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+        
+        .project-info p {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+            color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+        
+        .contact-content h2 {
+            color: white;
+            margin-bottom: 24px;
+        }
+        
+        .contact-content p {
+            font-size: 18px;
+            color: #D1D5DB;
+            margin-bottom: 40px;
+        }
+        
+        .contact-form {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3B82F6;
+        }
+        
+        .form-control::placeholder {
+            color: #9CA3AF;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: #1A1A1A;
+        }
+        
+        .btn-light:hover {
+            background-color: #F3F4F6;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 0 40px;
+            background-color: #0F172A;
+            color: #94A3B8;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+        
+        .footer-links a {
+            color: #94A3B8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container,
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .hero-content h1 {
+                font-size: 48px;
+            }
+            
+            .section-title {
+                font-size: 40px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px 0 60px;
+                text-align: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Wishbone</a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#projects">Проекты</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Создаем уникальные дизайны для вашего бизнеса</h1>
+                    <p>Мы помогаем брендам выделяться на рынке с помощью креативного подхода и внимания к деталям</p>
+                    <a href="#contact" class="btn">Начать проект</a>
+                </div>
+                <div class="hero-image">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDUwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNDAwIiByeD0iMTYiIGZpbGw9InVybCgjZ3JhZGllbnQwKSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDAiIHgxPSIwIiB5MT0iMCIgeDI9IjUwMCIgeTI9IjQwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjM0I4MkY2Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzI1NjNFQiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=" alt="Дизайн студия">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-container">
+                <div class="about-content">
+                    <div class="section-label">О нас</div>
+                    <h2 class="section-title">Мы создаем дизайн, который работает</h2>
+                    <div class="about-text">
+                        <p>Wishbone — это студия дизайна, специализирующаяся на создании уникальных визуальных решений для бизнеса. Наша команда объединяет креативность, стратегическое мышление и технические навыки для достижения выдающихся результатов.</p>
+                        <p>Мы верим, что хороший дизайн — это не только эстетика, но и функциональность, которая помогает нашим клиентам достигать своих целей.</p>
+                        <a href="#projects" class="btn btn-secondary">Наши работы</a>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDUwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNDAwIiByeD0iMTYiIGZpbGw9InVybCgjZ3JhZGllbnQxKSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDEiIHgxPSIwIiB5MT0iMCIgeDI9IjUwMCIgeTI9IjQwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjRjNGNEY2Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0U1RTdFQiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=" alt="Наша команда">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="services-header">
+                <div class="section-label">Услуги</div>
+                <h2 class="section-title">Что мы предлагаем</h2>
+                <p>Мы предоставляем полный спектр дизайнерских услуг для бизнеса любого масштаба</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Брендинг</h3>
+                    <p>Создаем уникальные идентичности брендов, которые выделяются на рынке и запоминаются клиентам</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Веб-дизайн</h3>
+                    <p>Разрабатываем интуитивно понятные и визуально привлекательные веб-сайты, которые конвертируют посетителей в клиентов</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>UI/UX дизайн</h3>
+                    <p>Создаем удобные интерфейсы, которые обеспечивают положительный пользовательский опыт</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="projects-header">
+                <div class="section-label">Проекты</div>
+                <h2 class="section-title">Наши работы</h2>
+                <p>Взгляните на некоторые из наших последних проектов</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDQwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjRkY2QjZCIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPkJyYW5kaW5nPC90ZXh0Pgo8L3N2Zz4K" alt="Проект 1" class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Брендинг для TechStart</h3>
+                        <p>Создание уникального бренда для стартапа в сфере технологий</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDQwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjM0I4MkY2Ii8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPldlYiBEZXNpZ248L3RleHQ+Cjwvc3ZnPgo=" alt="Проект 2" class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Веб-сайт для EcoFood</h3>
+                        <p>Разработка современного веб-сайта для сети органических продуктов</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDQwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjMTBCOTgxIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPk1vYmlsZSBBcHA8L3RleHQ+Cjwvc3ZnPgo=" alt="Проект 3" class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Приложение для FitLife</h3>
+                        <p>Дизайн мобильного приложения для фитнес-трекера</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-content">
+                    <div class="section-label" style="color: #3B82F6;">Контакты</div>
+                    <h2 class="section-title">Готовы начать проект?</h2>
+                    <p>Свяжитесь с нами, и мы обсудим, как можем помочь вашему бизнесу расти</p>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Ваш email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Расскажите о вашем проекте" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-light">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#home">Главная</a>
+                <a href="#about">О нас</a>
+                <a href="#services">Услуги</a>
+                <a href="#projects">Проекты</a>
+                <a href="#contact">Контакты</a>
+            </div>
+            <div class="copyright">
+                © 2023 Wishbone. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                header.style.backdropFilter = 'blur(10px)';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                header.style.backdropFilter = 'none';
+                header.style.backgroundColor = '#FFFFFF';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Form submission
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за сообщение! Мы скоро свяжемся с вами.');
+        });
+    </script>
+</body>
+</html>
