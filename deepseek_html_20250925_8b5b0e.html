@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishbone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #1B1A1A;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1B1A1A;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #1B1A1A;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #FF6B6B;
+        }
+        
+        /* Герой секция */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #FF6B6B;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e05555;
+        }
+        
+        /* О нас секция */
+        .about {
+            padding: 100px 0;
+        }
+        
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .section-subtitle {
+            font-size: 16px;
+            color: #FF6B6B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        /* Услуги секция */
+        .services {
+            padding: 100px 0;
+            background-color: #F9F9F9;
+        }
+        
+        .services-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .service-card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #FF6B6B;
+        }
+        
+        .service-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        /* Процесс секция */
+        .process {
+            padding: 100px 0;
+        }
+        
+        .process-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #E5E5E5;
+            z-index: 1;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: #FF6B6B;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        /* Проекты секция */
+        .projects {
+            padding: 100px 0;
+            background-color: #F9F9F9;
+        }
+        
+        .projects-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .project-info {
+            padding: 20px;
+            background-color: white;
+        }
+        
+        .project-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        /* Отзывы секция */
+        .testimonials {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .testimonial-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-text {
+            font-size: 24px;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .testimonial-role {
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        /* Контакты секция */
+        .contact {
+            padding: 100px 0;
+            background-color: #1B1A1A;
+            color: white;
+        }
+        
+        .contact-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .contact-text {
+            flex: 1;
+        }
+        
+        .contact-form {
+            flex: 1;
+            max-width: 500px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: #1B1A1A;
+        }
+        
+        .btn-light:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Подвал */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            background-color: #0F0F0F;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            font-size: 14px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .about-container, .contact-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .process-steps::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Wishbone</a>
+            <nav>
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#process">Процесс</a></li>
+                    <li><a href="#projects">Проекты</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Герой секция -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Создаем уникальные дизайны для вашего бизнеса</h1>
+            <p>Мы помогаем брендам выделяться на рынке с помощью креативного подхода и внимания к деталям.</p>
+            <a href="#contact" class="btn">Начать проект</a>
+        </div>
+    </section>
+
+    <!-- О нас секция -->
+    <section id="about" class="about">
+        <div class="container about-container">
+            <div class="about-text">
+                <span class="section-subtitle">О нас</span>
+                <h2 class="section-title">Мы создаем дизайн, который работает</h2>
+                <p>Wishbone — это студия дизайна, специализирующаяся на создании уникальных визуальных решений для бизнеса. Наша команда объединяет креативность, стратегическое мышление и технические навыки для достижения выдающихся результатов.</p>
+                <p>Мы верим, что хороший дизайн — это не только эстетика, но и функциональность, которая помогает нашим клиентам достигать своих целей.</p>
+                <a href="#projects" class="btn" style="margin-top: 30px;">Наши работы</a>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Наша команда">
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги секция -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="services-header">
+                <span class="section-subtitle">Услуги</span>
+                <h2 class="section-title">Что мы предлагаем</h2>
+                <p>Мы предоставляем полный спектр дизайнерских услуг для бизнеса любого масштаба.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3 class="service-title">Брендинг</h3>
+                    <p>Создаем уникальные идентичности брендов, которые выделяются на рынке и запоминаются клиентам.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3 class="service-title">Веб-дизайн</h3>
+                    <p>Разрабатываем интуитивно понятные и визуально привлекательные веб-сайты, которые конвертируют посетителей в клиентов.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3 class="service-title">UI/UX дизайн</h3>
+                    <p>Создаем удобные интерфейсы, которые обеспечивают положительный пользовательский опыт.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Процесс секция -->
+    <section id="process" class="process">
+        <div class="container">
+            <div class="process-header">
+                <span class="section-subtitle">Процесс</span>
+                <h2 class="section-title">Как мы работаем</h2>
+                <p>Наш подход к каждому проекту тщательно продуман и ориентирован на результат.</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Исследование</h3>
+                    <p>Изучаем ваш бизнес, целевую аудиторию и конкурентов.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Стратегия</h3>
+                    <p>Разрабатываем концепцию и план реализации проекта.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Дизайн</h3>
+                    <p>Создаем визуальные решения, соответствующие вашим целям.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Реализация</h3>
+                    <p>Воплощаем дизайн в жизнь и тестируем результат.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Проекты секция -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="projects-header">
+                <span class="section-subtitle">Проекты</span>
+                <h2 class="section-title">Наши работы</h2>
+                <p>Взгляните на некоторые из наших последних проектов.</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Проект 1" class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Брендинг для TechStart</h3>
+                        <p>Создание уникального бренда для стартапа в сфере технологий.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Проект 2" class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Веб-сайт для EcoFood</h3>
+                        <p>Разработка современного веб-сайта для сети органических продуктов.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Проект 3" class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Приложение для FitLife</h3>
+                        <p>Дизайн мобильного приложения для фитнес-трекера.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы секция -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="testimonial-content">
+                <p class="testimonial-text">"Работа с Wishbone превзошла все наши ожидания. Они не только создали потрясающий дизайн, но и помогли нам увеличить конверсию на 40%."</p>
+                <div class="testimonial-author">Анна Иванова</div>
+                <div class="testimonial-role">Маркетинг-директор, TechStart</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты секция -->
+    <section id="contact" class="contact">
+        <div class="container contact-container">
+            <div class="contact-text">
+                <span class="section-subtitle">Контакты</span>
+                <h2 class="section-title">Готовы начать проект?</h2>
+                <p>Свяжитесь с нами, и мы обсудим, как можем помочь вашему бизнесу расти.</p>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Ваш email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Расскажите о вашем проекте" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-light">Отправить сообщение</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Главная</a>
+                <a href="#about">О нас</a>
+                <a href="#services">Услуги</a>
+                <a href="#projects">Проекты</a>
+                <a href="#contact">Контакты</a>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Wishbone. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Изменение шапки при прокрутке
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
