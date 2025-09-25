@@ -1,0 +1,11 @@
+# Figma extracted files
+figma-images/
+figma-thumbnail.png
+Wishbone (Copy).fig
+
+# Temporary files
+/tmp/
+
+# Build artifacts
+node_modules/
+dist/
